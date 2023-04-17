@@ -1,0 +1,56 @@
+.linknav {
+  text-decoration: none;
+  color: #ffffff8c;
+}
+
+main {
+  padding: 2em;
+  background-image: linear-gradient(rgb(0, 238, 255), red);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  min-height: 95vh;
+}
+
+.login {
+  background-color: #333;
+  padding: 15px;
+  border-radius: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  max-width: 600px;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+.login > div {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.table-edit {
+  margin: 20px 0;
+  flex-grow: 1;
+}
+.link-tabla {
+  color: inherit;
+  text-decoration: none;
+}
+.boton-largo {
+  flex-basis: 400px;
+}
+.page {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+.inicio {
+  flex-grow: 1;
+  font-size: 100px;
+  align-self: center;
+  text-align: center;
+  color: brown;
+}
