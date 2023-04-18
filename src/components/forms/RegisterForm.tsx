@@ -21,14 +21,16 @@ export const RegisterForm = () => {
   const { register, handleSubmit, watch } = useForm<Inputs>();
   const { authState, singIn } = useContext(AuthContext);
   const { cuentasState } = useCuentas();
-  const { createProfesor } = useProfesores();
+  const { createProfesor } = useProfesores({});
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
     if (authState.isLogged) {
       createProfesor({ ...data });
       navigate("/");
     } else {
+      console.log(authState.user);
       singIn(data);
     }
   };
@@ -90,7 +92,7 @@ export const RegisterForm = () => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Tipo de cuenta</Form.Label>
+            <Form.Label>Tipo de rol</Form.Label>
             <Form.Select
               {...register("acountType", {
                 required: true,

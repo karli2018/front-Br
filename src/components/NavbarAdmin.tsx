@@ -10,19 +10,22 @@ export const NavbarAdmin = () => {
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container>
         <Navbar.Brand as={Link} to={"/"}>
-          Control de alumnos
+          Gestión
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link to={"/Alumnos"} as={Link}>
-              Listar Alumnos
+              Listar estudiantes
             </Nav.Link>
             <Nav.Link to={"/Cursos"} as={Link}>
               Cursos
             </Nav.Link>
+            <Nav.Link to={"/Profesores"} as={Link}>
+              Listar Profesores
+            </Nav.Link>
             <Nav.Link to={"/RegisterAccount"} as={Link}>
-              Registrar nueva cuenta
+              Registrar usuario
             </Nav.Link>
           </Nav>
           <Nav className="justify-contend-end">

@@ -5,7 +5,7 @@
 
 main {
   padding: 2em;
-  background-image: linear-gradient(rgb(0, 238, 255), red);
+  background-image: linear-gradient(rgb(0, 238, 255), pink);
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -40,11 +40,12 @@ main {
   text-decoration: none;
 }
 .boton-largo {
-  flex-basis: 400px;
+  height: 80px;
+  font-size: 20px;
 }
 .page {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   flex-grow: 1;
 }
 .inicio {
@@ -52,5 +53,10 @@ main {
   font-size: 100px;
   align-self: center;
   text-align: center;
-  color: brown;
+  color: crimson;
+}
+.filters {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

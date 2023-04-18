@@ -3,8 +3,8 @@ import { Form, Table } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ReactComponent as IconEdit } from "../assets/img/editarimg.svg";
 import { ReactComponent as IconDel } from "../assets/img/eliminarimg.svg";
-import { useAlumnos } from "../hooks/useAlumnos";
-import { Alumnos } from "../interfaces/interfaceAlumnos";
+import { useProfesores } from "../hooks/useProfesores";
+import { Profesores } from "../interfaces/interfaceProfesores";
 import { ButtonCreate } from "./ButtonCreate";
 import { FilterButton } from "./FilterButton";
 
@@ -15,72 +15,62 @@ interface Props {
   onClickDel?: () => void;
 }
 
-export const AlumnosTable = ({
+export const ProfesoresTable = ({
   del,
   edit,
   onClickEdit = () => {},
   onClickDel = () => {},
 }: Props) => {
   const {
-    fullName,
-    deleteAlumno,
+    // fullName,
+    deleteProfesor,
     onSearchName,
-    onSearchId,
-    alunosFilterState,
-  } = useAlumnos({});
-  const [dataState, setDataState] = useState<Alumnos[]>([]);
+    // onSearchId,
+    profesoresFilterState,
+  } = useProfesores({});
+  const [dataState, setDataState] = useState<Profesores[]>([]);
   const navigate = useNavigate();
 
   return (
     <>
-      <ButtonCreate
+      {/* <ButtonCreate
         tittle="Crear estudiante"
         onClick={() => navigate("/NewAlumno")}
-      />
-      <div className="filters">
-        <Form.Group>
-          <Form.Label>Nombre</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="ingrese el nombre"
-            onChange={onSearchName}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>identificacion</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="ingrese la identificacion"
-            onChange={onSearchId}
-          />
-        </Form.Group>
+      /> */}
+      <Form.Group>
+        <Form.Label>Nombre</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="ingrese el nombre"
+          onChange={onSearchName}
+        />
+      </Form.Group>
       <FilterButton size="50px" />
-      </div>
       <Table variant="dark" hover className="table-edit">
         <thead>
           <tr>
-            <th>Nombre Estudiante</th>
-            <th>Identificación</th>
+            <th>Nombre Profesor</th>
+            <th>identificación</th>
             {edit && <th>Editar</th>}
             {del && <th>Eliminar</th>}
           </tr>
         </thead>
         <tbody>
-          {alunosFilterState.map((item, i) => (
+          {profesoresFilterState.map((item, i) => (
             <tr key={i}>
               <td>
                 <Link to={`/AlumnoProfile/${item.id}`} className="link-tabla">
-                  {fullName(item)}
+                  {item.nombre}
                 </Link>
               </td>
-              <td>{item.identificacion}</td>
+              <td>{item.email}</td>
               {edit && (
                 <td>
                   <IconEdit
                     width={25}
                     onClick={() => {
                       onClickEdit();
-                      navigate(`/AlumnoUpdate/${item.id}`);
+                      navigate(`/ProfesorUpdate/${item.id}`);
                     }}
                   />
                 </td>
@@ -91,7 +81,7 @@ export const AlumnosTable = ({
                     width={25}
                     onClick={() => {
                       onClickDel();
-                      deleteAlumno(item.id);
+                      deleteProfesor(item.id);
                     }}
                   />
                 </td>

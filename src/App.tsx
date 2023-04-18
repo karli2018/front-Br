@@ -11,6 +11,7 @@ import { NewAlumno } from "./components/forms/NewAlumno";
 import { NewCurso } from "./components/forms/NewCurso";
 import { CursosPage } from "./components/CursosPage";
 import { AlumnosProfile } from "./components/AlumnosProfile";
+import { ProfesoresPage } from "./components/ProfesoresPage";
 
 export const App = () => {
   const { authState } = useContext(AuthContext);
@@ -32,6 +33,10 @@ export const App = () => {
           <Route
             path="/Alumnos"
             element={authState.isLogged ? <AlumnosPage /> : <Inicio />}
+          />
+          <Route
+            path="/Profesores"
+            element={authState.isLogged? <ProfesoresPage /> : <Inicio />}
           />
           <Route
             path="/Login"

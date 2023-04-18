@@ -75,7 +75,7 @@ export const NewAlumno = ({ update }: Props) => {
         <Form.Label>Segundo apellido</Form.Label>
         <Form.Control
           type="text"
-          placeholder="ingrese su identificacion"
+          placeholder="ingrese su segundo apellido"
           {...register("slastname", { required: true })}
         />
       </Form.Group>

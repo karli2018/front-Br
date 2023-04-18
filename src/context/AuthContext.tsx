@@ -54,27 +54,10 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
 
 export const AuthProvider = ({ children }: any) => {
   const [authstate, dispatch] = useReducer(authReducer, authInitialState);
-  const { profesoresState } = useProfesores();
-  const singIn = (data: LogData) => {
-    const user = profesoresState.filter((profesor) => {
-      return (
-        profesor.usuario === data.user && profesor.contrasena === data.pass
-      );
-    });
-    if (user.length > 0) {
-      const cuenta = user[0];
-      dispatch({
-        type: "logIn",
-        payload: {
-          user: {
-            id: cuenta.id,
-            name: cuenta.nombre,
-            rol: cuenta.idCuenta,
-            email: cuenta.email,
-          },
-        },
-      });
-    }
+  const { loginP } = useProfesores({});
+  const singIn = async(data: LogData) => {
+    const user = await loginP(data) 
+    dispatch({ type: "logIn", payload: { user } });
   };
   const logOut = () => {
     dispatch({ type: "logOut" });
