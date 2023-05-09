@@ -10,6 +10,9 @@ type Inputs = {
   flastname: string;
   slastname: string;
   identificacion: string;
+  correo: string;
+  usuario: string;
+  contrasena: string;
 };
 interface Props {
   update?: boolean;
@@ -22,10 +25,10 @@ export const NewAlumno = ({ update }: Props) => {
     id: params.idUser,
   });
   const navigate = useNavigate();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     update
-      ? updateAlumno({ ...data }, params?.idUser)
-      : createAlumno({ ...data, profe: authState.user?.id });
+      ? updateAlumno({ ...data, idUser: AlumnoState?.Usuario?AlumnoState.Usuario.id:null}, params?.idUser)
+      : createAlumno({ ...data });
     navigate("/Alumnos");
   };
 
@@ -36,6 +39,11 @@ export const NewAlumno = ({ update }: Props) => {
       setValue("flastname", AlumnoState.primer_Apellido);
       setValue("slastname", AlumnoState.segundo_Apellido);
       setValue("identificacion", AlumnoState.identificacion);
+      if(AlumnoState.Usuario)
+      {
+        setValue("correo", AlumnoState.Usuario.email);
+        setValue("usuario", AlumnoState.Usuario.usuario);
+      }
     }
   }, [AlumnoState, setValue]);
 
@@ -86,6 +94,31 @@ export const NewAlumno = ({ update }: Props) => {
           type="text"
           placeholder="ingrese su identificacion"
           {...register("identificacion", { required: true })}
+        />
+      </Form.Group>
+      
+      <Form.Group>
+        <Form.Label>Correo</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="ingrese correo"
+          {...register("correo", {})}
+        />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Usuario</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="ingrese usuario"
+          {...register("usuario", {})}
+        />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Contraseña</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="ingrese contraseña"
+          {...register("contrasena", {})}
         />
       </Form.Group>
 

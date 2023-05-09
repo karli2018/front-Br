@@ -30,7 +30,7 @@ export const RegisterForm = () => {
       createProfesor({ ...data });
       navigate("/");
     } else {
-      console.log(authState.user);
+      console.log(authState);
       singIn(data);
     }
   };
@@ -101,7 +101,7 @@ export const RegisterForm = () => {
             >
               <option value={0}>Seleccione una opción</option>
               {cuentasState.length > 0 &&
-                cuentasState.map((item) => (
+                cuentasState.filter((item)=> item.id == 1).map((item) => (
                   <option key={item.id} value={item.id}>
                     {item.cuenta}
                   </option>

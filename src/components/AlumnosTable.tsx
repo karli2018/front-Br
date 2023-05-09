@@ -47,7 +47,7 @@ export const AlumnosTable = ({
           />
         </Form.Group>
         <Form.Group>
-          <Form.Label>identificacion</Form.Label>
+          <Form.Label>Identificacion</Form.Label>
           <Form.Control
             type="text"
             placeholder="ingrese la identificacion"

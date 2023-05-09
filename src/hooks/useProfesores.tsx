@@ -31,13 +31,13 @@ export const useProfesores = ({ id }: Props) => {
     let cancelToken = axios.CancelToken.source().token;
 
     try {
-      const resp = await administradorApi.get("/profesores", { cancelToken });
+      const resp = await administradorApi.get("/usuarios", { cancelToken });
       setProfesoresState(resp.data);
       return resp.data;
     } catch (error) {}
   };
   const createProfesor = async (data: any) => {
-    const resp = await administradorApi.post("/profesores", { ...data });
+    const resp = await administradorApi.post("/usuarios", { ...data });
     loadprofesores();
     return resp.status;
   };

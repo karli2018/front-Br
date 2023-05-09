@@ -7,7 +7,7 @@ export interface Alumnos {
   primer_Apellido: string;
   segundo_Apellido: string;
   identificacion: string;
-  id_profesor: number;
+  id_usuario: number;
   createdAt: string;
   updatedAt: string;
   Alumno_cursos: AlumnoCurso[];

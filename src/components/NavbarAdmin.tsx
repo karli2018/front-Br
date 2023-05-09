@@ -21,9 +21,7 @@ export const NavbarAdmin = () => {
             <Nav.Link to={"/Cursos"} as={Link}>
               Cursos
             </Nav.Link>
-            <Nav.Link to={"/Profesores"} as={Link}>
-              Listar Profesores
-            </Nav.Link>
+
             <Nav.Link to={"/RegisterAccount"} as={Link}>
               Registrar usuario
             </Nav.Link>
