@@ -4,6 +4,7 @@ import { Alumnos } from "../interfaces/interfaceAlumnos";
 import { useCursos } from "./useCursos";
 import { Cursos } from "../interfaces/interfaceCursos";
 import axios from "axios";
+import { Alumno } from "../interfaces/interfaceAlumno";
 
 interface Props {
   id?: any | null;
@@ -18,7 +19,7 @@ const alumnosSearchInitial: AlumnoSearch = {
 };
 export const useAlumnos = ({ id }: Props) => {
   const [AlumnosState, setAlumnosState] = useState<Alumnos[]>([]);
-  const [AlumnoState, setAlumnoState] = useState<Alumnos>();
+  const [AlumnoState, setAlumnoState] = useState<Alumno>();
   const { cursosState } = useCursos({});
   const [search, setSearch] = useState<AlumnoSearch>(alumnosSearchInitial);
   const [alunosFilterState, setAlunosFilterState] = useState<Alumnos[]>([]);
@@ -34,7 +35,7 @@ export const useAlumnos = ({ id }: Props) => {
         const resp = await administradorApi.get(`/alumnos/${id}`, {
           cancelToken,
         });
-        setAlumnoState(resp.data);
+        setAlumnoState(resp.data);        
         return resp.data;
       }
     } catch (error) {}
@@ -103,7 +104,24 @@ export const useAlumnos = ({ id }: Props) => {
     } catch (error) {}
   };
   const createAlumno = async (data: any) => {
-    const resp = await administradorApi.post("/alumnos", { ...data });
+    let usuarioResp;
+    if(data.correo && data.usuario && data.contrasena) {
+      const usuario = {
+        user: data.usuario,
+        pass: data.contrasena,
+        email: data.correo,
+        name: data.fname + " " + data.flastname,
+        acountType: 2
+      }
+     console.log(usuario);
+      usuarioResp = await administradorApi.post("/usuarios", usuario);
+    }
+    const profe = usuarioResp?.data?.id || null;
+    const alumno = {
+      ...data,
+      profe,
+    };
+    const resp = await administradorApi.post("/alumnos", alumno);
     loadAlumnos();
     return resp.status;
   };
