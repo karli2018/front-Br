@@ -1,4 +1,5 @@
 import { useContext, useEffect } from "react";
+import "../../App.css";
 import { Button, Form } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthContext";
@@ -15,7 +16,7 @@ interface Props {
 }
 
 export const NewCurso = ({ update }: Props) => {
-  const { register, handleSubmit, setValue } = useForm<Inputs>();
+  const { register, formState: { errors}, handleSubmit, setValue } = useForm<Inputs>();
   const { authState } = useContext(AuthContext);
   const params = useParams();
   const { createCurso, cursoState } = useCursos({ id: params.id });
@@ -39,18 +40,24 @@ export const NewCurso = ({ update }: Props) => {
         <Form.Control
           type="text"
           placeholder="ingrese nombre de curso"
-          {...register("curso", { required: true })}
-        />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Codigo</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="ingrese el codigo"
-          {...register("codigo", {
+          {...register("curso", { 
             required: true,
+            pattern: /^[A-Za-z0-9\s]+$/
           })}
         />
+      {errors.curso?.type === 'pattern' && <p className="messages">Ingrese solo letras y números</p>}
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Descripcion</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="ingrese una breve descripción del curso"
+          {...register("codigo", {
+            required: true,
+            pattern: /^[a-zA-ZáéíóúÁÉÍÓÚ\s.,]+$/
+          })}
+        />
+        {errors.codigo?.type === 'pattern' && <p className="messages">Solo se permiten letras, puntos, comas y espacios.</p>}
       </Form.Group>
       <Form.Group>
         <Form.Label>creditos</Form.Label>
@@ -58,7 +65,7 @@ export const NewCurso = ({ update }: Props) => {
           type="number"
           placeholder="ingrese el numero de creditos"
           {...register("creditos", {
-            required: true,
+            required: false,
           })}
         />
       </Form.Group>

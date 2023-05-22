@@ -18,7 +18,7 @@ type Inputs =
   | { user: string; pass: string };
 
 export const RegisterForm = () => {
-  const { register, handleSubmit, watch } = useForm<Inputs>();
+  const { register, formState: { errors}, handleSubmit, watch } = useForm<Inputs>();
   const { authState, singIn } = useContext(AuthContext);
   const { cuentasState } = useCuentas();
   const { createProfesor } = useProfesores({});
@@ -45,8 +45,12 @@ export const RegisterForm = () => {
         <Form.Control
           type="text"
           placeholder="ingrese su usuario"
-          {...register("user", { required: true })}
+          {...register("user", {
+             required: true,
+             pattern: /^[A-Za-z0-9_]+$/
+             })}
         />
+        {errors.user?.type === 'pattern' && <p className="messages">Ingrese solo letras, números y guiones bajos</p>}
       </Form.Group>
       <Form.Group>
         <Form.Label>Contraseña</Form.Label>
@@ -55,9 +59,10 @@ export const RegisterForm = () => {
           placeholder="ingrese su contraseña"
           {...register("pass", {
             required: true,
-            minLength: 6,
+            pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[\W_]).{8,}$/
           })}
         />
+        {errors.pass?.type === "pattern" && <p className="messages">Debe contener más de 8 caracteres, almenos 1 minuscula, mayuscula, número y caracter especial</p>}
       </Form.Group>
       {authState.isLogged && (
         <>
@@ -68,18 +73,22 @@ export const RegisterForm = () => {
               placeholder="ingrese su contraseña"
               {...register("confirm", {
                 required: true,
-                minLength: 6,
+                pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[\W_]).{8,}$/,
                 validate: validatePassword,
               })}
             />
-            <Form.Text>Ingrese la de nuevo la contraseña</Form.Text>
+            <Form.Text>Ingrese de nuevo la contraseña</Form.Text>
+           {/* {errors && errors.confirm && errors.confirm.type === "pattern" && <p className="messages">Debe contener más de 8 caracteres, almenos 1 minuscula, mayuscula, número y caracter especial</p>} */}
           </Form.Group>
           <Form.Group>
-            <Form.Label>Nombre</Form.Label>
+            <Form.Label>Nombre Completo</Form.Label>
             <Form.Control
               type="text"
               placeholder="ingrese su nombre"
-              {...register("name", { required: true })}
+              {...register("name", {
+                 required: true,
+                 pattern: /^[A-Za-z ]+$/
+                })}
             />
           </Form.Group>
 
@@ -88,7 +97,10 @@ export const RegisterForm = () => {
             <Form.Control
               type="email"
               placeholder="ingrese su email"
-              {...register("email", { required: true })}
+              {...register("email", { 
+                required: true,
+                pattern: /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}/
+               })}
             />
           </Form.Group>
           <Form.Group>
