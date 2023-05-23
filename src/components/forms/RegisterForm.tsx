@@ -78,7 +78,6 @@ export const RegisterForm = () => {
               })}
             />
             <Form.Text>Ingrese de nuevo la contraseña</Form.Text>
-           {/* {errors && errors.confirm && errors.confirm.type === "pattern" && <p className="messages">Debe contener más de 8 caracteres, almenos 1 minuscula, mayuscula, número y caracter especial</p>} */}
           </Form.Group>
           <Form.Group>
             <Form.Label>Nombre Completo</Form.Label>
