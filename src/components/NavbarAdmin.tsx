@@ -15,7 +15,9 @@ export const NavbarAdmin = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link to={"/Alumnos"} as={Link}>
+          {authState.user?.idCuenta === 1 &&
+          <>
+           <Nav.Link to={"/Alumnos"} as={Link}>
               Listar estudiantes
             </Nav.Link>
             <Nav.Link to={"/Cursos"} as={Link}>
@@ -25,6 +27,18 @@ export const NavbarAdmin = () => {
             <Nav.Link to={"/RegisterAccount"} as={Link}>
               Registrar usuario
             </Nav.Link>
+          </>
+          }
+          {authState.user?.idCuenta === 2 &&
+          <>
+           <Nav.Link to={`/AlumnoProfile/${authState.user.idAlumno}`} as={Link}>
+              Ver mi ficha
+            </Nav.Link>
+            <Nav.Link to={`/AlumnoUpdate/${authState.user.idAlumno}`} as={Link}>
+              Actualizar mis datos
+            </Nav.Link>
+          </>
+          }
           </Nav>
           <Nav className="justify-contend-end">
             <Nav.Item>

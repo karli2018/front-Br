@@ -12,11 +12,12 @@ import { NewCurso } from "./components/forms/NewCurso";
 import { CursosPage } from "./components/CursosPage";
 import { AlumnosProfile } from "./components/AlumnosProfile";
 import { ProfesoresPage } from "./components/ProfesoresPage";
+import userEvent from "@testing-library/user-event";
 
 export const App = () => {
   const { authState } = useContext(AuthContext);
-  console.log(authState);
-
+  console.log(authState.user?authState.user.idCuenta:'hola');
+ if(authState.user?.idCuenta === 1){
   return (
     <div className="App">
       <header>
@@ -24,7 +25,7 @@ export const App = () => {
       </header>
 
       <main>
-        <Routes>
+        <Routes>          
           <Route path="/" element={<Inicio />} />
           <Route
             path="/Cursos"
@@ -70,6 +71,52 @@ export const App = () => {
       </main>
     </div>
   );
+ }
+ else if (authState.user?.idCuenta === 2){
+    return (
+      <div className="App">
+      <header>
+        <NavbarAdmin />
+      </header>
+
+      <main>
+        <Routes>          
+          <Route path="/" element={<Inicio />} />
+          <Route
+            path="/Login"
+            element={authState.isLogged ? <Inicio /> : <RegisterForm />}
+          />
+          <Route
+            path="/AlumnoProfile/:idUser"
+            element={authState.isLogged ? <AlumnosProfile /> : <Inicio />}
+          />
+          <Route
+            path="/AlumnoUpdate/:idUser"
+            element={authState.isLogged ? <NewAlumno update /> : <Inicio />}
+          />
+        </Routes>
+      </main>
+    </div>
+    )
+ }
+ else {
+  return ( <div className="App">
+  <header>
+    <NavbarAdmin />
+  </header>
+
+  <main>
+    <Routes>          
+      <Route path="/" element={<Inicio />} />
+      <Route
+            path="/Login"
+            element={authState.isLogged ? <Inicio /> : <RegisterForm />}
+          />
+    </Routes>
+      </main>
+    </div>)
+ }
+  
 };
 export const AppState = ({ children }: { children: JSX.Element }) => {
   //su tipo seria  {children: JSX.Element[]}si hubieran mas de un hijo

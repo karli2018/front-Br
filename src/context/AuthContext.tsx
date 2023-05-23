@@ -3,9 +3,10 @@ import { useProfesores } from "../hooks/useProfesores";
 
 interface userlog {
   id: number;
-  name: string;
-  rol: number;
+  nombre: string;
+  idCuenta: number;
   email: string;
+  idAlumno: number | null;
 }
 
 interface AuthState {
@@ -43,6 +44,7 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
         ...state,
         user: action.payload.user,
         isLogged: true,
+
       };
     case "logOut":
       return authInitialState;
@@ -56,8 +58,19 @@ export const AuthProvider = ({ children }: any) => {
   const [authstate, dispatch] = useReducer(authReducer, authInitialState);
   const { loginP } = useProfesores({});
   const singIn = async(data: LogData) => {
-    const user = await loginP(data) 
-    dispatch({ type: "logIn", payload: { user } });
+
+try {
+      const user = await loginP(data) 
+      if(user){
+        const userAlumno = {...user, idAlumno : user.Alumno ? user.Alumno.id: null}
+        console.log(user);       
+        dispatch({ type: "logIn", payload: { user: userAlumno } });
+      }
+} catch (error) {
+  console.log(error);
+  
+}
+
   };
   const logOut = () => {
     dispatch({ type: "logOut" });

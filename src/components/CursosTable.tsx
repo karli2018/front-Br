@@ -31,7 +31,7 @@ export const CursosTable = ({
         <thead>
           <tr>
             <th>Nombre del Curso</th>
-            <th>Codigo</th>
+            <th>Descripción</th>
             <th>Creditos</th>
             {edit && <th>Editar</th>}
             {del && <th>Eliminar</th>}

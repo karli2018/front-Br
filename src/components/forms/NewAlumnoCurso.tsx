@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import { Button, Form } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthContext";
-import { useCursos } from "../../hooks/useCursos";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAlumnos } from "../../hooks/useAlumnos";
 
 type Inputs = {
@@ -19,10 +18,12 @@ export const NewAlumnoCurso = ({ submit }: Props) => {
   const { createAlumnosCursos, AlumnoCursoNoRep } = useAlumnos({
     id: params.idUser,
   });
+  const { authState } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     createAlumnosCursos({ ...data, alumno: params.idUser });
-    submit();
+    authState.user?.idCuenta === 2 ? navigate("/"): submit();
   };
 
   return (

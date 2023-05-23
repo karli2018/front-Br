@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { CursosTable } from "./CursosTable";
@@ -35,7 +35,8 @@ export const AlumnosProfile = () => {
       </Table>
       <h2>Cursos registrados</h2>
       <AlumnosCursosTable data={AlumnoState?.Alumno_cursos} del />
-      <NewAlumnoCurso submit={() => navigate("/Alumnos")} />
+      
+      <NewAlumnoCurso submit={() => {navigate("/Alumnos")}} />
     </section>
   );
 };
